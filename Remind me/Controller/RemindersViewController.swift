@@ -9,6 +9,15 @@
 import UIKit
 
 class RemindersViewController: UIViewController {
+    
+    lazy var tableView: UITableView = {
+        let tableview = UITableView(frame: CGRect.zero, style: .grouped)
+        
+        tableview.register(ReminderTableViewCell.self, forCellReuseIdentifier: "ReminderCell")
+        tableview.backgroundColor = UIColor.white
+        
+        return tableview
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,21 +25,16 @@ class RemindersViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
-    */
-
 }
