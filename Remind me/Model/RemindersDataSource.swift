@@ -33,7 +33,7 @@ class RemindersDataSource: NSObject {
 
 extension RemindersDataSource: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController.sections?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,8 +42,17 @@ extension RemindersDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath) as! ReminderTableViewCell
         let reminder = fetchedResultsController.object(at: indexPath) as! Reminder
+        
+        cell.titleLabel.text = reminder.name
+        var subText = ""
+        if reminder.ariving {
+            subText = "Ariving at \(reminder.location.name)"
+        } else {
+            subText =  "Departing from \(reminder.location.name)"
+        }
+        cell.subLabel.text = subText
         
         //TODO: Setup
         

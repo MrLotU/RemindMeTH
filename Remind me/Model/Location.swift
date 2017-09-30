@@ -14,7 +14,7 @@ import CoreData
 class Location: NSManagedObject {
     static let entityName = "\(Location.self)"
     
-    static func locationWith(name: String, andLat lat: Double, andLon lon: Double) -> Location {
+    class func locationWith(name: String, andLat lat: Double, andLon lon: Double) -> Location {
         let location = NSEntityDescription.insertNewObject(forEntityName: Location.entityName, into: CDController.sharedInstance.managedObjectContext) as! Location
         location.lat = lat
         location.lon = lon

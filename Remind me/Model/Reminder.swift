@@ -16,10 +16,11 @@ class Reminder: NSManagedObject {
     
     static var allRemindersRequest: NSFetchRequest = { () -> NSFetchRequest<NSFetchRequestResult> in
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Reminder.entityName)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         return request
     }()
     
-    static func reminderWith(name: String, location: Location, diameter: Double = 50, isActive: Bool, ariving: Bool) {
+    class func reminderWith(name: String, location: Location, diameter: Double = 50, isActive: Bool, ariving: Bool) {
         let reminder = NSEntityDescription.insertNewObject(forEntityName: Reminder.entityName, into: CDController.sharedInstance.managedObjectContext) as! Reminder
         reminder.ariving = ariving
         reminder.isActive = isActive
