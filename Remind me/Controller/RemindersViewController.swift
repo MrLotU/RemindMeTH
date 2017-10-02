@@ -28,7 +28,7 @@ class RemindersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for x in 1...10 {
+        for x in 1...30 {
             let location = Location.locationWith(name: "Location \(x)", andLat: Double(x), andLon: Double(x))
             Reminder.reminderWith(name: "Reminder \(x)", location: location, diameter: 50, isActive: Bool(x%2 == 0), ariving: Bool(x%2 != 0))
         }
@@ -36,6 +36,8 @@ class RemindersViewController: UIViewController {
         self.title = "Reminders"
         
         self.tableView.dataSource = dataSource
+        self.tableView.delegate = self
+        
         self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Add new", style: .plain, target: self, action: #selector(addNewReminder)), animated: true)
         
         // Do any additional setup after loading the view.
@@ -46,9 +48,9 @@ class RemindersViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: (view.layoutMargins.top * -0.5)),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
@@ -61,5 +63,9 @@ class RemindersViewController: UIViewController {
 extension RemindersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt insdexPath: IndexPath) {
+        //TODO: Do something in here
     }
 }

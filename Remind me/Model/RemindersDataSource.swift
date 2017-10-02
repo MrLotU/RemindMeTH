@@ -45,6 +45,8 @@ extension RemindersDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath) as! ReminderTableViewCell
         let reminder = fetchedResultsController.object(at: indexPath) as! Reminder
         
+        cell.selectionStyle = .none
+        
         cell.titleLabel.text = reminder.name
         var subText = ""
         if reminder.ariving {
@@ -54,7 +56,11 @@ extension RemindersDataSource: UITableViewDataSource {
         }
         cell.subLabel.text = subText
         
-        //TODO: Setup
+        if reminder.isActive {
+            cell.activeIndicatorLabel.text = "Active"
+        } else {
+            cell.activeIndicatorLabel.text = "Disabled"
+        }
         
         return cell
     }
