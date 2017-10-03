@@ -18,6 +18,9 @@
 		085664391F7BFA220003964E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085664381F7BFA220003964E /* AppDelegate.swift */; };
 		085664401F7BFA220003964E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0856643F1F7BFA220003964E /* Assets.xcassets */; };
 		085664431F7BFA220003964E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 085664411F7BFA220003964E /* LaunchScreen.storyboard */; };
+		08A18B041F83731C005D45A1 /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B031F83731C005D45A1 /* EditTableViewController.swift */; };
+		08A18B061F837325005D45A1 /* NewReminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B051F837325005D45A1 /* NewReminderTableViewController.swift */; };
+		08A18B081F837345005D45A1 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B071F837345005D45A1 /* AddLocationTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		0856643F1F7BFA220003964E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		085664421F7BFA220003964E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		085664441F7BFA220003964E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08A18B031F83731C005D45A1 /* EditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
+		08A18B051F837325005D45A1 /* NewReminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderTableViewController.swift; sourceTree = "<group>"; };
+		08A18B071F837345005D45A1 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,9 @@
 				082C9A831F7E44EE008F128A /* RemindersViewController.swift */,
 				0837E4C51F7F89490046B668 /* CDController.swift */,
 				0837E4C71F7F8A5D0046B668 /* FetchedResultsController.swift */,
+				08A18B031F83731C005D45A1 /* EditTableViewController.swift */,
+				08A18B051F837325005D45A1 /* NewReminderTableViewController.swift */,
+				08A18B071F837345005D45A1 /* AddLocationTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,9 +189,12 @@
 				0837E4C61F7F89490046B668 /* CDController.swift in Sources */,
 				0837E4C41F7F876E0046B668 /* RemindersDataSource.swift in Sources */,
 				082C9A841F7E44EE008F128A /* RemindersViewController.swift in Sources */,
+				08A18B041F83731C005D45A1 /* EditTableViewController.swift in Sources */,
+				08A18B061F837325005D45A1 /* NewReminderTableViewController.swift in Sources */,
 				0837E4C21F7F86430046B668 /* ReminderTableViewCell.swift in Sources */,
 				085664391F7BFA220003964E /* AppDelegate.swift in Sources */,
 				082C9A8E1F7E47BB008F128A /* Location.swift in Sources */,
+				08A18B081F837345005D45A1 /* AddLocationTableViewController.swift in Sources */,
 				082C9A8A1F7E45DF008F128A /* RemindMe.xcdatamodeld in Sources */,
 				0837E4C81F7F8A5D0046B668 /* FetchedResultsController.swift in Sources */,
 				082C9A8C1F7E47B5008F128A /* Reminder.swift in Sources */,
