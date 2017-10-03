@@ -52,12 +52,12 @@ class EditTableViewController: UITableViewController {
         return sSwitch
     }()
     
-    lazy var nameTextView: UITextView = {
-        let textView = UITextView(frame: CGRect.zero)
-        textView.text = self.reminder.name
-        textView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var nameTextField: UITextField = {
+        let textField = UITextField(frame: CGRect.zero)
+        textField.text = self.reminder.name
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        return textView
+        return textField
     }()
     
     lazy var arrivingStateLabel: UILabel = {
@@ -81,12 +81,12 @@ class EditTableViewController: UITableViewController {
         return aSwitch
     }()
     
-    lazy var locationNameTextView: UITextView = {
-        let textView = UITextView(frame: CGRect.zero)
-        textView.text = self.reminder.location.name
-        textView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var locationNameTextField: UITextField = {
+        let textField = UITextField(frame: CGRect.zero)
+        textField.text = self.reminder.location.name
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        return textView
+        return textField
     }()
     
     lazy var locationLabel: UILabel = {
@@ -115,6 +115,7 @@ class EditTableViewController: UITableViewController {
     lazy var diameterStepper: UIStepper = {
         let stepper = UIStepper(frame: CGRect.zero)
         stepper.translatesAutoresizingMaskIntoConstraints = false
+        stepper.value = self.reminder.diameter
         stepper.stepValue = 5
         stepper.minimumValue = 0
         stepper.maximumValue = 100
@@ -130,6 +131,17 @@ class EditTableViewController: UITableViewController {
 extension EditTableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44.0
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0: return "Reminder state"
+        case 1: return "Reminder name"
+        case 2: return "Arriving/Departing"
+        case 3: return "Location"
+        case 4: return "Advanced"
+        default: return ""
+        }
     }
 }
 
@@ -162,16 +174,17 @@ extension EditTableViewController {
                 stateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 stateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                stateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
+                stateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                stateSwitch.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
             ])
         case (1, 0):
-            cell.contentView.addSubview(nameTextView)
+            cell.contentView.addSubview(nameTextField)
             
             NSLayoutConstraint.activate([
-                nameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
-                nameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                nameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                nameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+                nameTextField.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                nameTextField.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                nameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                nameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
         case (2, 0):
             cell.contentView.addSubviews([arrivingStateLabel, arrivingStateSwitch])
@@ -181,16 +194,17 @@ extension EditTableViewController {
                 arrivingStateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 arrivingStateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                arrivingStateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
+                arrivingStateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                arrivingStateSwitch.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
             ])
         case (3, 0):
-            cell.contentView.addSubview(locationNameTextView)
+            cell.contentView.addSubview(locationNameTextField)
             
             NSLayoutConstraint.activate([
-                locationNameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
-                locationNameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                locationNameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                locationNameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+                locationNameTextField.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                locationNameTextField.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                locationNameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                locationNameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
         case (3, 1):
             cell.contentView.addSubview(locationLabel)
@@ -198,7 +212,7 @@ extension EditTableViewController {
             
             NSLayoutConstraint.activate([
                 locationLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
-                locationLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                locationLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
                 locationLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
@@ -209,12 +223,13 @@ extension EditTableViewController {
                 diameterLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 diameterLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 diameterLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                diameterLabel.trailingAnchor.constraint(equalTo: diameterValueLabel.leadingAnchor, constant: 10),
+                diameterLabel.trailingAnchor.constraint(equalTo: diameterValueLabel.leadingAnchor, constant: -20),
                 
                 diameterValueLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 diameterValueLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
+                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                diameterStepper.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
             ])
         default:
             break
@@ -247,7 +262,25 @@ extension EditTableViewController {
     }
     
     @objc func saveReminder() {
+        guard let name = nameTextField.text, let locationName = locationNameTextField.text, locationNameTextField.text != "", nameTextField.text != "" else {
+            let alertController = UIAlertController(title: "Name fields can't be empty!", message: "Please be sure that both Reminder Name and Location Name are not empty!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            return
+        }
         
+        reminder.isActive = stateSwitch.isOn
+        reminder.name = name
+        reminder.ariving = arrivingStateSwitch.isOn
+        reminder.location.name = locationName
+        // TODO: - Implement location updating
+        reminder.diameter = diameterStepper.value
+        
+        self.resignFirstResponder()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func cancel() {
