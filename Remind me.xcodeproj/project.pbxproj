@@ -110,6 +110,7 @@
 				082C9A861F7E45A9008F128A /* View */,
 				082C9A871F7E45AF008F128A /* Controller */,
 				08A18B091F837EDF005D45A1 /* Helper files */,
+				085664441F7BFA220003964E /* Info.plist */,
 			);
 			path = "Remind me";
 			sourceTree = "<group>";
@@ -120,7 +121,6 @@
 				085664381F7BFA220003964E /* AppDelegate.swift */,
 				0856643F1F7BFA220003964E /* Assets.xcassets */,
 				085664411F7BFA220003964E /* LaunchScreen.storyboard */,
-				085664441F7BFA220003964E /* Info.plist */,
 				08A18B0A1F837EF4005D45A1 /* Extensions.swift */,
 			);
 			path = "Helper files";
