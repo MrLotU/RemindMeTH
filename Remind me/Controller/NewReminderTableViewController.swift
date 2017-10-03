@@ -96,21 +96,13 @@ class NewReminderTableViewController: UITableViewController {
         
         return stepper
     }()
-    
-    lazy var map: MKMapView = {
-        let map = MKMapView(frame: CGRect.zero)
-        map.centerCoordinate = CLLocationCoordinate2D(latitude: 200, longitude: 200)
-        map.translatesAutoresizingMaskIntoConstraints = false
-        
-        return map
-    }()
 }
 
 // MARK: - Table view data source
 extension NewReminderTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -141,11 +133,7 @@ extension NewReminderTableViewController {
             return 44
         }
     }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15
-    }
-    
+        
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Remind me to"
@@ -157,7 +145,6 @@ extension NewReminderTableViewController {
                 return "From"
             }
         case 3: return "Advanced settings"
-        case 4: return "Map preview"
         default: return ""
         }
     }
