@@ -20,11 +20,15 @@ class Reminder: NSManagedObject {
         return request
     }()
     
-    class func reminderWith(name: String, location: Location, diameter: Double = 50, isActive: Bool, ariving: Bool) {
+    class func reminderWith(name: String, location: Location, diameter: Double?, isActive: Bool, ariving: Bool) {
         let reminder = NSEntityDescription.insertNewObject(forEntityName: Reminder.entityName, into: CDController.sharedInstance.managedObjectContext) as! Reminder
         reminder.ariving = ariving
         reminder.isActive = isActive
-        reminder.diameter = diameter
+        if let diameter = diameter {
+            reminder.diameter = diameter
+        } else {
+            reminder.diameter = 50.0
+        }
         reminder.name = name
         reminder.location = location
     }

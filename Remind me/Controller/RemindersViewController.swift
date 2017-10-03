@@ -39,8 +39,6 @@ class RemindersViewController: UIViewController {
         self.tableView.delegate = self
         
         self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Add new", style: .plain, target: self, action: #selector(addNewReminder)), animated: true)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidLayoutSubviews() {
