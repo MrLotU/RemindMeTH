@@ -25,6 +25,7 @@ class EditTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveReminder))
     }
     
@@ -113,6 +114,7 @@ class EditTableViewController: UITableViewController {
     
     lazy var diameterStepper: UIStepper = {
         let stepper = UIStepper(frame: CGRect.zero)
+        stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.stepValue = 5
         stepper.minimumValue = 0
         stepper.maximumValue = 100
@@ -121,6 +123,14 @@ class EditTableViewController: UITableViewController {
         return stepper
     }()
 
+}
+
+// MARK: - Table view delegate
+
+extension EditTableViewController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44.0
+    }
 }
 
 // MARK: - Table view data source
@@ -148,19 +158,17 @@ extension EditTableViewController {
             cell.contentView.addSubviews([stateLabel, stateSwitch])
             
             NSLayoutConstraint.activate([
-                stateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                stateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 stateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 stateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                stateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                stateSwitch.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                stateSwitch.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+                stateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
             ])
         case (1, 0):
             cell.contentView.addSubview(nameTextView)
             
             NSLayoutConstraint.activate([
-                nameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                nameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 nameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 nameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 nameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
@@ -169,28 +177,27 @@ extension EditTableViewController {
             cell.contentView.addSubviews([arrivingStateLabel, arrivingStateSwitch])
             
             NSLayoutConstraint.activate([
-                arrivingStateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                arrivingStateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 arrivingStateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 arrivingStateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                arrivingStateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                arrivingStateSwitch.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                arrivingStateSwitch.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+                arrivingStateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
             ])
         case (3, 0):
             cell.contentView.addSubview(locationNameTextView)
             
             NSLayoutConstraint.activate([
-                locationNameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                locationNameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 locationNameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 locationNameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 locationNameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
         case (3, 1):
             cell.contentView.addSubview(locationLabel)
+            cell.accessoryType = .disclosureIndicator
             
             NSLayoutConstraint.activate([
-                locationLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                locationLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 locationLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 locationLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
@@ -199,7 +206,7 @@ extension EditTableViewController {
             cell.contentView.addSubviews([diameterLabel, diameterValueLabel, diameterStepper])
             
             NSLayoutConstraint.activate([
-                diameterLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                diameterLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
                 diameterLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 diameterLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 diameterLabel.trailingAnchor.constraint(equalTo: diameterValueLabel.leadingAnchor, constant: 10),
@@ -207,14 +214,11 @@ extension EditTableViewController {
                 diameterValueLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 diameterValueLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 
-                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                diameterStepper.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                diameterStepper.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor)
             ])
         default:
             break
         }
-
         return cell
     }
 }
@@ -223,7 +227,6 @@ extension EditTableViewController {
 
 extension EditTableViewController {
     @objc func didUpdateStateSwitch(sender: UISwitch) {
-        self.reminder.isActive = sender.isOn
         if sender.isOn {
             self.stateLabel.text = "Active"
         } else {
@@ -232,7 +235,6 @@ extension EditTableViewController {
     }
     
     @objc func didUpdateArrivingSwitch(sender: UISwitch) {
-        self.reminder.ariving = sender.isOn
         if sender.isOn {
             self.arrivingStateLabel.text = "Arriving"
         } else {
@@ -241,12 +243,16 @@ extension EditTableViewController {
     }
     
     @objc func didUpdateDiameterStepper(sender: UIStepper) {
-        self.reminder.diameter = sender.value
         self.diameterValueLabel.text = "\(sender.value) meters"
     }
     
     @objc func saveReminder() {
         
+    }
+    
+    @objc func cancel() {
+        self.resignFirstResponder()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

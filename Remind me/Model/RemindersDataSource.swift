@@ -45,6 +45,7 @@ extension RemindersDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath) as! ReminderTableViewCell
         let reminder = fetchedResultsController.object(at: indexPath) as! Reminder
         
+        cell.reminder = reminder
         cell.selectionStyle = .none
         
         cell.titleLabel.text = reminder.name

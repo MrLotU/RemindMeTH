@@ -10,6 +10,8 @@ import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
     
+    var reminder: Reminder!
+    
     lazy var locationImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 15, y: 7.5, width: 29, height: 29))
         imageView.image = UIImage(named: "location")

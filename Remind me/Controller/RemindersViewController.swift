@@ -58,12 +58,33 @@ class RemindersViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension RemindersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt insdexPath: IndexPath) {
-        //TODO: Do something in here
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! ReminderTableViewCell
+        
+        editTableViewCellWithReminder(cell.reminder)
     }
 }
+
+// MARK: - Navigation
+
+extension RemindersViewController {
+    func editTableViewCellWithReminder(_ reminder: Reminder) {
+        let editReminderTVC = EditTableViewController(reminder: reminder)
+        self.navigationController?.pushViewController(editReminderTVC, animated: true)
+    }
+}
+
+
+
+
+
+
+
+
