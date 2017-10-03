@@ -145,8 +145,7 @@ extension EditTableViewController {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            cell.contentView.addSubview(stateLabel)
-            cell.contentView.addSubview(stateSwitch)
+            cell.contentView.addSubviews([stateLabel, stateSwitch])
             
             NSLayoutConstraint.activate([
                 stateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
@@ -167,8 +166,7 @@ extension EditTableViewController {
                 nameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
         case (2, 0):
-            cell.contentView.addSubview(arrivingStateLabel)
-            cell.contentView.addSubview(arrivingStateSwitch)
+            cell.contentView.addSubviews([arrivingStateLabel, arrivingStateSwitch])
             
             NSLayoutConstraint.activate([
                 arrivingStateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
@@ -198,7 +196,21 @@ extension EditTableViewController {
                 locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
         case (4, 0):
-            cell.contentView.addSubview(diameterLabel)
+            cell.contentView.addSubviews([diameterLabel, diameterValueLabel, diameterStepper])
+            
+            NSLayoutConstraint.activate([
+                diameterLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                diameterLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                diameterLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                diameterLabel.trailingAnchor.constraint(equalTo: diameterValueLabel.leadingAnchor, constant: 10),
+                
+                diameterValueLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                diameterValueLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                
+                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                diameterStepper.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                diameterStepper.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+            ])
         default:
             break
         }
