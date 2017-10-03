@@ -145,7 +145,60 @@ extension EditTableViewController {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            break
+            cell.contentView.addSubview(stateLabel)
+            cell.contentView.addSubview(stateSwitch)
+            
+            NSLayoutConstraint.activate([
+                stateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                stateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                stateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                
+                stateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                stateSwitch.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                stateSwitch.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+            ])
+        case (1, 0):
+            cell.contentView.addSubview(nameTextView)
+            
+            NSLayoutConstraint.activate([
+                nameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                nameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                nameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                nameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+            ])
+        case (2, 0):
+            cell.contentView.addSubview(arrivingStateLabel)
+            cell.contentView.addSubview(arrivingStateSwitch)
+            
+            NSLayoutConstraint.activate([
+                arrivingStateLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                arrivingStateLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                arrivingStateLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                
+                arrivingStateSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                arrivingStateSwitch.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                arrivingStateSwitch.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+            ])
+        case (3, 0):
+            cell.contentView.addSubview(locationNameTextView)
+            
+            NSLayoutConstraint.activate([
+                locationNameTextView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                locationNameTextView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                locationNameTextView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                locationNameTextView.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+            ])
+        case (3, 1):
+            cell.contentView.addSubview(locationLabel)
+            
+            NSLayoutConstraint.activate([
+                locationLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                locationLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                locationLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+            ])
+        case (4, 0):
+            cell.contentView.addSubview(diameterLabel)
         default:
             break
         }

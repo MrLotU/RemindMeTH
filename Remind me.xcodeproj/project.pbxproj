@@ -21,6 +21,7 @@
 		08A18B041F83731C005D45A1 /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B031F83731C005D45A1 /* EditTableViewController.swift */; };
 		08A18B061F837325005D45A1 /* NewReminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B051F837325005D45A1 /* NewReminderTableViewController.swift */; };
 		08A18B081F837345005D45A1 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B071F837345005D45A1 /* AddLocationTableViewController.swift */; };
+		08A18B0B1F837EF4005D45A1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A18B0A1F837EF4005D45A1 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		08A18B031F83731C005D45A1 /* EditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
 		08A18B051F837325005D45A1 /* NewReminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderTableViewController.swift; sourceTree = "<group>"; };
 		08A18B071F837345005D45A1 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
+		08A18B0A1F837EF4005D45A1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,12 +109,21 @@
 				082C9A851F7E45A2008F128A /* Model */,
 				082C9A861F7E45A9008F128A /* View */,
 				082C9A871F7E45AF008F128A /* Controller */,
+				08A18B091F837EDF005D45A1 /* Helper files */,
+			);
+			path = "Remind me";
+			sourceTree = "<group>";
+		};
+		08A18B091F837EDF005D45A1 /* Helper files */ = {
+			isa = PBXGroup;
+			children = (
 				085664381F7BFA220003964E /* AppDelegate.swift */,
 				0856643F1F7BFA220003964E /* Assets.xcassets */,
 				085664411F7BFA220003964E /* LaunchScreen.storyboard */,
 				085664441F7BFA220003964E /* Info.plist */,
+				08A18B0A1F837EF4005D45A1 /* Extensions.swift */,
 			);
-			path = "Remind me";
+			path = "Helper files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +205,7 @@
 				0837E4C21F7F86430046B668 /* ReminderTableViewCell.swift in Sources */,
 				085664391F7BFA220003964E /* AppDelegate.swift in Sources */,
 				082C9A8E1F7E47BB008F128A /* Location.swift in Sources */,
+				08A18B0B1F837EF4005D45A1 /* Extensions.swift in Sources */,
 				08A18B081F837345005D45A1 /* AddLocationTableViewController.swift in Sources */,
 				082C9A8A1F7E45DF008F128A /* RemindMe.xcdatamodeld in Sources */,
 				0837E4C81F7F8A5D0046B668 /* FetchedResultsController.swift in Sources */,
