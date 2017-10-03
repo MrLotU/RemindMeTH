@@ -53,9 +53,6 @@ class RemindersViewController: UIViewController {
         ])
     }
     
-    @objc func addNewReminder() {
-        
-    }
 }
 
 // MARK: - UITableViewDelegate
@@ -78,6 +75,11 @@ extension RemindersViewController {
     func editTableViewCellWithReminder(_ reminder: Reminder) {
         let editReminderTVC = EditTableViewController(reminder: reminder)
         self.navigationController?.pushViewController(editReminderTVC, animated: true)
+    }
+    
+    @objc func addNewReminder() {
+        let newReminderTVC = NewReminderTableViewController()
+        self.navigationController?.pushViewController(newReminderTVC, animated: true)
     }
 }
 
