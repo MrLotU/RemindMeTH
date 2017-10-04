@@ -63,8 +63,8 @@ class NewReminderTableViewController: UITableViewController {
     
     lazy var locationLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
-        label.text = "Select a location"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Select a location"
         
         return label
     }()
@@ -113,11 +113,68 @@ extension NewReminderTableViewController {
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.selectionStyle = .none
 
-        // Configure the cell...
+        switch (indexPath.section, indexPath.row) {
+        case (0,0):
+            cell.contentView.addSubview(nameTextField)
+            
+            NSLayoutConstraint.activate([
+                nameTextField.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                nameTextField.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                nameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                nameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+            ])
+        case (1,0):
+            cell.contentView.addSubviews([arrivingLabel, arivingSwitch])
+            
+            NSLayoutConstraint.activate([
+                arrivingLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                arrivingLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                arrivingLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                
+                arivingSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                arivingSwitch.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+            ])
+        case (2,0):
+            cell.contentView.addSubview(locationNameTextField)
+            
+            NSLayoutConstraint.activate([
+                locationNameTextField.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                locationNameTextField.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                locationNameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                locationNameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+            ])
+        case (2,1):
+            cell.addSubview(locationLabel)
+            cell.accessoryType = .disclosureIndicator
+            
+            NSLayoutConstraint.activate([
+                locationLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                locationLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                locationLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+            ])
+        case (3,0):
+            cell.contentView.addSubviews([diameterLabel, diameterValueLabel, diameterStepper])
+            
+            NSLayoutConstraint.activate([
+                diameterLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                diameterLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                diameterLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                diameterLabel.trailingAnchor.constraint(equalTo: diameterValueLabel.leadingAnchor, constant: -20),
+                
+                diameterValueLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                diameterValueLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                
+                diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                diameterStepper.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+                ])
+        default:
+            break
+        }
 
         return cell
     }
@@ -127,13 +184,9 @@ extension NewReminderTableViewController {
 // MARK: - Table view delegate
 extension NewReminderTableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section, indexPath.row) == (4, 0) {
-            return 2
-        } else {
-            return 44
-        }
+        return 44
     }
-        
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Remind me to"
