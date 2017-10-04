@@ -47,6 +47,7 @@ class NewReminderTableViewController: UITableViewController {
     
     lazy var arivingSwitch: UISwitch = {
         let aSwitch = UISwitch(frame: CGRect.zero)
+        aSwitch.isOn = true
         aSwitch.addTarget(self, action: #selector(didUpdateArrivingSwitch), for: .valueChanged)
         aSwitch.translatesAutoresizingMaskIntoConstraints = false
         
@@ -206,7 +207,21 @@ extension NewReminderTableViewController {
 // MARK: - Helper methods
 extension NewReminderTableViewController {
     @objc func doneButtonPressed() {
+        guard let name = nameTextField.text, let locationName = locationNameTextField.text, locationNameTextField.text != "", nameTextField.text != "" else {
+            let alertController = UIAlertController(title: "Name fields can't be empty!", message: "Please be sure that both Reminder Name and Location Name are not empty!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            return
+        }
         
+        let location = Location.locationWith(name: locationName, andLat: 100, andLon: 100)
+        Reminder.reminderWith(name: name, location: location, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
+        
+        self.resignFirstResponder()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func cancelButtonPressed() {
@@ -224,6 +239,6 @@ extension NewReminderTableViewController {
     }
     
     @objc func didUpdateDiameterStepper(sender: UIStepper) {
-        
+        self.diameterValueLabel.text = "\(sender.value) meters"
     }
 }
