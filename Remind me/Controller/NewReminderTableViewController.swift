@@ -10,8 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol LocationDelegate {
+    func setLocation(_ location: CLLocation)
+}
+
 class NewReminderTableViewController: UITableViewController {
 
+    var location: CLLocation!
+    
     init() {
         super.init(style: .grouped)
     }
@@ -184,6 +190,12 @@ extension NewReminderTableViewController {
 
 // MARK: - Table view delegate
 extension NewReminderTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section, indexPath.row) == (2, 1) {
+            addLocation()
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
@@ -205,10 +217,10 @@ extension NewReminderTableViewController {
 }
 
 // MARK: - Helper methods
-extension NewReminderTableViewController {
+extension NewReminderTableViewController: LocationDelegate {
     @objc func doneButtonPressed() {
         guard let name = nameTextField.text, let locationName = locationNameTextField.text, locationNameTextField.text != "", nameTextField.text != "" else {
-            let alertController = UIAlertController(title: "Name fields can't be empty!", message: "Please be sure that both Reminder Name and Location Name are not empty!", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Missing required fields", message: "Please be sure that both Reminder Name and Location Name are not empty!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
             
@@ -217,7 +229,16 @@ extension NewReminderTableViewController {
             return
         }
         
-        let location = Location.locationWith(name: locationName, andLat: 100, andLon: 100)
+        guard self.location != nil else {
+            let alertController = UIAlertController(title: "Missing required fields", message: "Please be sure that you set a Location for this reminder!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        let location = Location.locationWith(name: locationName, andLat: self.location.coordinate.latitude, andLon: self.location.coordinate.longitude)
         Reminder.reminderWith(name: name, location: location, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
         
         self.resignFirstResponder()
@@ -227,6 +248,14 @@ extension NewReminderTableViewController {
     @objc func cancelButtonPressed() {
         self.resignFirstResponder()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func addLocation() {
+        
+    }
+    
+    func setLocation(_ location: CLLocation) {
+        self.location = location
     }
     
     @objc func didUpdateArrivingSwitch(sender: UISwitch) {
