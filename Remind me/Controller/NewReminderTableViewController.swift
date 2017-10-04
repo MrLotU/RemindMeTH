@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 import CoreLocation
 
 protocol LocationDelegate {
@@ -251,7 +250,8 @@ extension NewReminderTableViewController: LocationDelegate {
     }
     
     func addLocation() {
-        
+        let addLocationTVC = AddLocationTableViewController(delegate: self)
+        self.navigationController?.pushViewController(addLocationTVC, animated: true)
     }
     
     func setLocation(_ location: CLLocation) {
