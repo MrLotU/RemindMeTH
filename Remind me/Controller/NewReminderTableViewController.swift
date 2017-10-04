@@ -119,7 +119,7 @@ extension NewReminderTableViewController {
         cell.selectionStyle = .none
 
         switch (indexPath.section, indexPath.row) {
-        case (0,0):
+        case (0, 0):
             cell.contentView.addSubview(nameTextField)
             
             NSLayoutConstraint.activate([
@@ -128,7 +128,7 @@ extension NewReminderTableViewController {
                 nameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 nameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
             ])
-        case (1,0):
+        case (1, 0):
             cell.contentView.addSubviews([arrivingLabel, arivingSwitch])
             
             NSLayoutConstraint.activate([
@@ -139,7 +139,7 @@ extension NewReminderTableViewController {
                 arivingSwitch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
                 arivingSwitch.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
             ])
-        case (2,0):
+        case (2, 0):
             cell.contentView.addSubview(locationNameTextField)
             
             NSLayoutConstraint.activate([
@@ -148,8 +148,8 @@ extension NewReminderTableViewController {
                 locationNameTextField.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
                 locationNameTextField.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
             ])
-        case (2,1):
-            cell.addSubview(locationLabel)
+        case (2, 1):
+            cell.contentView.addSubview(locationLabel)
             cell.accessoryType = .disclosureIndicator
             
             NSLayoutConstraint.activate([
@@ -158,7 +158,7 @@ extension NewReminderTableViewController {
                 locationLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 locationLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
             ])
-        case (3,0):
+        case (3, 0):
             cell.contentView.addSubviews([diameterLabel, diameterValueLabel, diameterStepper])
             
             NSLayoutConstraint.activate([
