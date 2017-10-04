@@ -93,6 +93,7 @@ class EditTableViewController: UITableViewController {
     
     lazy var locationLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
+        label.text = "Placeholder"
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
