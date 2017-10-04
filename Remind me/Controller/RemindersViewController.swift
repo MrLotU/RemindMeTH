@@ -27,12 +27,7 @@ class RemindersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        for x in 1...30 {
-//            let location = Location.locationWith(name: "Location \(x)", andLat: Double(x), andLon: Double(x))
-//            Reminder.reminderWith(name: "Reminder \(x)", location: location, diameter: 50, isActive: Bool(x%2 == 0), ariving: Bool(x%2 != 0))
-//        }
-        
+                
         self.title = "Reminders"
         
         self.tableView.dataSource = dataSource
