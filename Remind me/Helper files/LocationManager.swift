@@ -23,7 +23,7 @@ class LocationManager: NSObject {
     }
     
     fileprivate func getPermission() {
-        if CLLocationManager.authorizationStatus() == .notDetermined {
+        if CLLocationManager.authorizationStatus() == .notDetermined || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             manager.requestAlwaysAuthorization()
         }
     }
