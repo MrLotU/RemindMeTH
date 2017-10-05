@@ -250,7 +250,7 @@ extension NewReminderTableViewController: LocationDelegate {
     }
     
     func addLocation() {
-        let addLocationTVC = AddLocationTableViewController(delegate: self)
+        let addLocationTVC = LocationTableViewController(delegate: self)
         self.navigationController?.pushViewController(addLocationTVC, animated: true)
     }
     

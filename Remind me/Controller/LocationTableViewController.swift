@@ -1,5 +1,5 @@
 //
-//  AddLocationTableViewController.swift
+//  LocationTableViewController.swift
 //  Remind me
 //
 //  Created by Jari Koopman on 03/10/2017.
@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class AddLocationTableViewController: UITableViewController {
+class LocationTableViewController: UITableViewController {
     
     let delegate: LocationDelegate
     let locationManager: LocationManager
@@ -89,7 +89,7 @@ class AddLocationTableViewController: UITableViewController {
 
 // MARK: - Table view delegate
 
-extension AddLocationTableViewController {
+extension LocationTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section, indexPath.row) == (1, 0) {
@@ -115,7 +115,7 @@ extension AddLocationTableViewController {
 }
 
 // MARK: - Table view data source
-extension AddLocationTableViewController {
+extension LocationTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -186,7 +186,7 @@ extension AddLocationTableViewController {
 
 // MARK: - Helper methods
 
-extension AddLocationTableViewController {
+extension LocationTableViewController {
     @objc func doneButtonPressed() {
         guard self.location != CLLocation(), self.locationName != "" else {
             let alertController = UIAlertController(title: "Missing location!", message: "Please be sure that you selected a location!", preferredStyle: .alert)
