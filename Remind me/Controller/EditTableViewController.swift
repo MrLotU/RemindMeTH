@@ -12,9 +12,11 @@ import CoreLocation
 class EditTableViewController: UITableViewController {
     
     fileprivate let reminder: Reminder
+    var location: CLLocation
     
     init(reminder: Reminder) {
         self.reminder = reminder
+        self.location = reminder.location.location
         
         super.init(style: .grouped)
     }
@@ -52,7 +54,6 @@ class EditTableViewController: UITableViewController {
     }
     
     // MARK: Edit fields
-    
     lazy var stateLabel: UILabel = {
         
         let label = UILabel(frame: CGRect.zero)
@@ -151,6 +152,13 @@ class EditTableViewController: UITableViewController {
 // MARK: - Table view delegate
 
 extension EditTableViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section, indexPath.row) == (3, 1) {
+            let locationTVC = LocationTableViewController(delegate: self, location: self.reminder.location.location)
+            self.navigationController?.pushViewController(locationTVC, animated: true)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44.0
     }
@@ -262,7 +270,12 @@ extension EditTableViewController {
 
 // MARK: - Helper methods
 
-extension EditTableViewController {
+extension EditTableViewController: LocationDelegate {
+    func setLocation(_ location: CLLocation, andName name: String) {
+        self.locationLabel.text = name
+        self.location = location
+    }
+    
     @objc func didUpdateStateSwitch(sender: UISwitch) {
         if sender.isOn {
             self.stateLabel.text = "Active"
@@ -298,7 +311,8 @@ extension EditTableViewController {
         reminder.name = name
         reminder.ariving = arrivingStateSwitch.isOn
         reminder.location.name = locationName
-        // TODO: - Implement location updating
+        reminder.location.lat = self.location.coordinate.latitude
+        reminder.location.lon = self.location.coordinate.longitude
         reminder.diameter = diameterStepper.value
         
         self.resignFirstResponder()

@@ -15,16 +15,22 @@ class LocationTableViewController: UITableViewController {
     let delegate: LocationDelegate
     let locationManager: LocationManager
     
-    var location: CLLocation = CLLocation()
+    var location: CLLocation
     var locationName: String = "" {
         didSet {
             self.selectedLocationLabel.text = locationName
         }
     }
     
-    init(delegate: LocationDelegate) {
+    init(delegate: LocationDelegate, location: CLLocation?) {
         self.delegate = delegate
         self.locationManager = LocationManager()
+        
+        if let location = location {
+            self.location = location
+        } else {
+            self.location = CLLocation()
+        }
         
         super.init(style: .grouped)
     }
@@ -83,7 +89,11 @@ class LocationTableViewController: UITableViewController {
         self.title = "Select location"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
-        getCurrentLocation()
+        if self.location.coordinate.latitude == CLLocation().coordinate.latitude && self.location.coordinate.longitude == CLLocation().coordinate.longitude {
+            getCurrentLocation()
+        } else {
+            CLGeocoder().reverseGeocodeLocation(self.location, completionHandler: updateLocations)
+        }
     }
 }
 
