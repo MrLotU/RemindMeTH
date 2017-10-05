@@ -18,6 +18,7 @@ class LocationManager: NSObject {
     override init() {
         super.init()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         
         getPermission()
     }
