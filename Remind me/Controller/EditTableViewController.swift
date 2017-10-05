@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class EditTableViewController: UITableViewController {
     
@@ -29,6 +30,25 @@ class EditTableViewController: UITableViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveReminder))
+        
+        CLGeocoder().reverseGeocodeLocation(self.reminder.location.location) { (placemarks, error) in
+            if let error = error {
+                print("Error: \(error), \(error.localizedDescription)")
+                return
+            }
+            
+            guard let placemarks = placemarks, let placemark = placemarks.first else {
+                print("Couldn't get placemark from placemarks")
+                return
+            }
+            
+            guard let name = placemark.name, let city = placemark.locality, let area = placemark.administrativeArea else {
+                print("Couldn't get data")
+                return
+            }
+            
+            self.locationLabel.text = "\(name), \(city), \(area)"
+        }
     }
     
     // MARK: Edit fields
@@ -93,7 +113,6 @@ class EditTableViewController: UITableViewController {
     
     lazy var locationLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
-        label.text = "Placeholder"
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

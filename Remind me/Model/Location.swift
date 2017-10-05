@@ -28,4 +28,8 @@ extension Location {
     @NSManaged var lat: Double
     @NSManaged var lon: Double
     @NSManaged var name: String
+    
+    var location: CLLocation {
+        return CLLocation(latitude: lat, longitude: lon)
+    }
 }
