@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 protocol LocationDelegate {
-    func setLocation(_ location: CLLocation)
+    func setLocation(_ location: CLLocation, andName name: String)
 }
 
 class NewReminderTableViewController: UITableViewController {
@@ -254,8 +254,9 @@ extension NewReminderTableViewController: LocationDelegate {
         self.navigationController?.pushViewController(addLocationTVC, animated: true)
     }
     
-    func setLocation(_ location: CLLocation) {
+    func setLocation(_ location: CLLocation, andName name: String) {
         self.location = location
+        self.locationLabel.text = name
     }
     
     @objc func didUpdateArrivingSwitch(sender: UISwitch) {
