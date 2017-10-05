@@ -13,7 +13,7 @@ class LocationManager: NSObject {
     let manager = CLLocationManager()
     let geocoder = CLGeocoder()
     
-    var onLocationFix: ((CLPlacemark?, NSError?) -> Void)?
+    var onLocationFix: (([CLPlacemark]?, Error?) -> Void)?
     
     override init() {
         super.init()
@@ -48,7 +48,7 @@ extension LocationManager: CLLocationManagerDelegate {
         
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let onLocationFix = self.onLocationFix {
-                onLocationFix(placemarks?.first, error as NSError?)
+                onLocationFix(placemarks, error)
             }
         }
     }
