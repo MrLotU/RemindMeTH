@@ -15,6 +15,8 @@ class LocationManager: NSObject {
     
     var onLocationFix: (([CLPlacemark]?, Error?) -> Void)?
     
+    static let sharedInstance = LocationManager()
+    
     override init() {
         super.init()
         manager.delegate = self
@@ -37,6 +39,10 @@ extension LocationManager: CLLocationManagerDelegate {
         } else {
             manager.requestAlwaysAuthorization()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("Monitoring failed for region with identifier: \(region!.identifier), error: \(error)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

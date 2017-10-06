@@ -95,9 +95,9 @@ class NewReminderTableViewController: UITableViewController {
         let stepper = UIStepper(frame: CGRect.zero)
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.value = 50
-        stepper.stepValue = 5
-        stepper.minimumValue = 0
-        stepper.maximumValue = 100
+        stepper.stepValue = 10
+        stepper.minimumValue = 10
+        stepper.maximumValue = 500
         stepper.addTarget(self, action: #selector(didUpdateDiameterStepper), for: .valueChanged)
         
         return stepper
@@ -237,7 +237,9 @@ extension NewReminderTableViewController: LocationDelegate {
             return
         }
         
-        Reminder.reminderWith(name: name, location: location, locationName: locationName, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
+        let reminder = Reminder.reminderWith(name: name, location: location, locationName: locationName, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
+        
+        reminder.enable()
         
         self.resignFirstResponder()
         self.navigationController?.popViewController(animated: true)

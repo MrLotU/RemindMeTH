@@ -139,12 +139,22 @@ class EditTableViewController: UITableViewController {
         let stepper = UIStepper(frame: CGRect.zero)
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.value = self.reminder.diameter
-        stepper.stepValue = 5
-        stepper.minimumValue = 0
-        stepper.maximumValue = 100
+        stepper.stepValue = 10
+        stepper.minimumValue = 10
+        stepper.maximumValue = 500
         stepper.addTarget(self, action: #selector(didUpdateDiameterStepper), for: .valueChanged)
         
         return stepper
+    }()
+    
+    lazy var deleteLabel: UILabel = {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = "DELETE"
+        label.textColor = UIColor.red
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
 
 }
@@ -156,6 +166,8 @@ extension EditTableViewController {
         if (indexPath.section, indexPath.row) == (3, 1) {
             let locationTVC = LocationTableViewController(delegate: self, location: self.reminder.location)
             self.navigationController?.pushViewController(locationTVC, animated: true)
+        } else if (indexPath.section, indexPath.row) == (5, 0) {
+            CDController.sharedInstance.managedObjectContext.delete(self.reminder)
         }
     }
     
@@ -170,6 +182,7 @@ extension EditTableViewController {
         case 2: return "Arriving/Departing"
         case 3: return "Location"
         case 4: return "Advanced"
+        case 5: return "Danger zone"
         default: return ""
         }
     }
@@ -180,7 +193,7 @@ extension EditTableViewController {
 extension EditTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -261,6 +274,15 @@ extension EditTableViewController {
                 diameterStepper.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
                 diameterStepper.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
             ])
+        case (5, 0):
+            cell.contentView.addSubview(deleteLabel)
+            
+            NSLayoutConstraint.activate([
+                deleteLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                deleteLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
+                deleteLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                deleteLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+            ])
         default:
             break
         }
@@ -308,6 +330,11 @@ extension EditTableViewController: LocationDelegate {
         }
         
         reminder.isActive = stateSwitch.isOn
+        if stateSwitch.isOn {
+            reminder.disable()
+        } else {
+            reminder.enable()
+        }
         reminder.name = name
         reminder.ariving = arrivingStateSwitch.isOn
         reminder.locName = locationName
