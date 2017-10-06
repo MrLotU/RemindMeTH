@@ -237,8 +237,7 @@ extension NewReminderTableViewController: LocationDelegate {
             return
         }
         
-        let location = Location.locationWith(name: locationName, andLat: self.location.coordinate.latitude, andLon: self.location.coordinate.longitude)
-        Reminder.reminderWith(name: name, location: location, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
+        Reminder.reminderWith(name: name, location: location, locationName: locationName, diameter: self.diameterStepper.value, isActive: true, ariving: self.arivingSwitch.isOn)
         
         self.resignFirstResponder()
         self.navigationController?.popViewController(animated: true)

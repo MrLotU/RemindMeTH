@@ -20,7 +20,7 @@ class Reminder: NSManagedObject {
         return request
     }()
     
-    class func reminderWith(name: String, location: Location, diameter: Double?, isActive: Bool, ariving: Bool) {
+    class func reminderWith(name: String, location: CLLocation, locationName: String, diameter: Double?, isActive: Bool, ariving: Bool) {
         let reminder = NSEntityDescription.insertNewObject(forEntityName: Reminder.entityName, into: CDController.sharedInstance.managedObjectContext) as! Reminder
         reminder.ariving = ariving
         reminder.isActive = isActive
@@ -30,7 +30,9 @@ class Reminder: NSManagedObject {
             reminder.diameter = 50.0
         }
         reminder.name = name
-        reminder.location = location
+        reminder.lat = location.coordinate.latitude
+        reminder.long = location.coordinate.longitude
+        reminder.locName = locationName
     }
 }
 
@@ -39,5 +41,11 @@ extension Reminder {
     @NSManaged var isActive: Bool
     @NSManaged var diameter: Double
     @NSManaged var name: String
-    @NSManaged var location: Location
+    @NSManaged var lat: Double
+    @NSManaged var long: Double
+    @NSManaged var locName: String
+    
+    var location: CLLocation {
+        return CLLocation(latitude: self.lat, longitude: self.long)
+    }
 }

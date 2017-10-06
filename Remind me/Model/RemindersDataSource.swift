@@ -51,9 +51,9 @@ extension RemindersDataSource: UITableViewDataSource {
         cell.titleLabel.text = reminder.name
         var subText = ""
         if reminder.ariving {
-            subText = "Ariving at \(reminder.location.name)"
+            subText = "Ariving at \(reminder.locName)"
         } else {
-            subText =  "Departing from \(reminder.location.name)"
+            subText =  "Departing from \(reminder.locName)"
         }
         cell.subLabel.text = subText
         

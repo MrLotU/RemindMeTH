@@ -16,7 +16,7 @@ class EditTableViewController: UITableViewController {
     
     init(reminder: Reminder) {
         self.reminder = reminder
-        self.location = reminder.location.location
+        self.location = reminder.location
         
         super.init(style: .grouped)
     }
@@ -33,7 +33,7 @@ class EditTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveReminder))
         
-        CLGeocoder().reverseGeocodeLocation(self.reminder.location.location) { (placemarks, error) in
+        CLGeocoder().reverseGeocodeLocation(self.reminder.location) { (placemarks, error) in
             if let error = error {
                 print("Error: \(error), \(error.localizedDescription)")
                 return
@@ -106,7 +106,7 @@ class EditTableViewController: UITableViewController {
     
     lazy var locationNameTextField: UITextField = {
         let textField = UITextField(frame: CGRect.zero)
-        textField.text = self.reminder.location.name
+        textField.text = self.reminder.locName
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -154,7 +154,7 @@ class EditTableViewController: UITableViewController {
 extension EditTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section, indexPath.row) == (3, 1) {
-            let locationTVC = LocationTableViewController(delegate: self, location: self.reminder.location.location)
+            let locationTVC = LocationTableViewController(delegate: self, location: self.reminder.location)
             self.navigationController?.pushViewController(locationTVC, animated: true)
         }
     }
@@ -310,9 +310,9 @@ extension EditTableViewController: LocationDelegate {
         reminder.isActive = stateSwitch.isOn
         reminder.name = name
         reminder.ariving = arrivingStateSwitch.isOn
-        reminder.location.name = locationName
-        reminder.location.lat = self.location.coordinate.latitude
-        reminder.location.lon = self.location.coordinate.longitude
+        reminder.locName = locationName
+        reminder.lat = self.location.coordinate.latitude
+        reminder.long = self.location.coordinate.longitude
         reminder.diameter = diameterStepper.value
         
         self.resignFirstResponder()
