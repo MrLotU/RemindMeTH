@@ -45,7 +45,7 @@ class EditTableViewController: UITableViewController {
             }
             
             guard let name = placemark.name, let city = placemark.locality, let area = placemark.administrativeArea else {
-                print("Couldn't get data")
+                self.locationLabel.text = "\(self.reminder.lat), \(self.reminder.long)"
                 return
             }
             
@@ -168,6 +168,8 @@ extension EditTableViewController {
             self.navigationController?.pushViewController(locationTVC, animated: true)
         } else if (indexPath.section, indexPath.row) == (5, 0) {
             CDController.sharedInstance.managedObjectContext.delete(self.reminder)
+            self.resignFirstResponder()
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -328,12 +330,16 @@ extension EditTableViewController: LocationDelegate {
             
             return
         }
+        //Disable the reminder first to remove the current UNTrigger
+        reminder.disable()
         
         reminder.isActive = stateSwitch.isOn
         if stateSwitch.isOn {
-            reminder.disable()
-        } else {
+            //Re-add the UNTrigger
             reminder.enable()
+        } else {
+            //Re-delete the UNTrigger just to be sure
+            reminder.disable()
         }
         reminder.name = name
         reminder.ariving = arrivingStateSwitch.isOn

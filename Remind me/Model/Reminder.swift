@@ -21,6 +21,10 @@ class Reminder: NSManagedObject {
         return request
     }()
     
+    var identifier: String {
+        return "\(self.name)-\(self.locName)@\(self.lat),\(self.long)w\(self.diameter)"
+    }
+    
     class func reminderWith(name: String, location: CLLocation, locationName: String, diameter: Double?, isActive: Bool, ariving: Bool) -> Reminder {
         let reminder = NSEntityDescription.insertNewObject(forEntityName: Reminder.entityName, into: CDController.sharedInstance.managedObjectContext) as! Reminder
         reminder.ariving = ariving
@@ -39,7 +43,7 @@ class Reminder: NSManagedObject {
     }
     
     func createReminder() {
-        let region = CLCircularRegion(center: self.location.coordinate, radius: self.diameter/2, identifier: "\(self.name)-\(self.locName)")
+        let region = CLCircularRegion(center: self.location.coordinate, radius: self.diameter/2, identifier: self.identifier)
         
         region.notifyOnEntry = self.ariving
         region.notifyOnExit = !self.ariving
@@ -55,7 +59,7 @@ class Reminder: NSManagedObject {
         content.body = self.name
         content.sound = UNNotificationSound.default()
         
-        let request = UNNotificationRequest(identifier: region.identifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()
         center.add(request, withCompletionHandler: nil)
     }
@@ -75,8 +79,8 @@ extension Reminder {
         let center = UNUserNotificationCenter.current()
         center.getPendingNotificationRequests { (requests) in
             for request in requests {
-                if request.identifier == "\(self.name)-\(self.locName)" {
-                    center.removePendingNotificationRequests(withIdentifiers: ["\(self.name)-\(self.locName)"])
+                if request.identifier == self.identifier {
+                    center.removePendingNotificationRequests(withIdentifiers: [self.identifier])
                 }
             }
         }
@@ -88,7 +92,7 @@ extension Reminder {
         var foundReminderForID = false
         center.getPendingNotificationRequests { (requests) in
             for request in requests {
-                if request.identifier == "\(self.name)-\(self.locName)" {
+                if request.identifier == self.identifier {
                     foundReminderForID = true
                 }
             }

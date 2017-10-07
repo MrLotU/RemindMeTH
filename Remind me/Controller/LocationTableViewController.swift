@@ -223,7 +223,6 @@ extension LocationTableViewController {
             let touchPoint = sender.location(in: self.map)
             let coords = self.map.convert(touchPoint, toCoordinateFrom: self.map)
             let location = CLLocation(latitude: coords.latitude, longitude: coords.longitude)
-            self.location = location
             let annotation = MKPointAnnotation()
             annotation.coordinate = coords
             
@@ -260,6 +259,7 @@ extension LocationTableViewController {
             return
         }
         
+        self.location = location
         let coords = location.coordinate
         let annotation = MKPointAnnotation()
         annotation.coordinate = coords
